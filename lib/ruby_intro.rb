@@ -33,7 +33,20 @@ def sum_to_n? arr, n
   if arr.length() < 2
     return false
   end
-  
+  @i = 0
+  while @i < arr.length() do
+    @j = 0
+    while @j < arr.length() do
+      if @i != @j
+        if arr[@i] + arr[@j] == n
+          return true
+        end
+      end
+      @j += 1
+    end
+    @i += 1
+  end
+  return false
 end
 
 # Part 2
