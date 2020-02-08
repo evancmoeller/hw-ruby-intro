@@ -13,57 +13,27 @@ def sum arr
 end
 
 def max_2_sum arr
-  if arr.length() > 0
-    if arr.length() == 1
-      return arr[0]
-    end
-    @tmpx = arr[0]
-    @tmpy = arr[0]
-    @index_x = 0
-    @store = 0
-    @index_y = 0
-    while @index_x < arr.length() do
-      if arr[@index_x] > @tmpx
-        @tmpx = arr[@index_x]
-        @store = @index_x
-      end
-      @index_x += 1
-    end
-    while @index_y < arr.length() do
-      if arr[@index_y] > @tmpy
-        if @index_y != @store
-          @tmpy = arr[@index_y]
-        end
-      end
-      @index_y += 1
-    end
-    return @tmpx + @tmpy
-  else
+  if arr.length() < 1
     return 0
+  elsif arr.length == 1
+    return arr[0]
+  else
+    @buffer = arr.sort
+    @tmp_max = arr[arr.length()-1]
+    @tmp_next = arr[arr.length()-2]
+    if @tmp_next < 0
+      @tmp_max = arr[0]
+      @tmp_next = arr[1]
+    end
+    return @tmp_max + @tmp_next
   end
 end
 
 def sum_to_n? arr, n
-  @buffer = 0
-  if arr.length() > 1
-    @index_x = 0
-    @tmpx = 0
-    while @index_x < arr.length() do
-      @tmpx = arr[@index_x]
-      @index_y = 0
-      @tmpy = 0
-      while @index_y < arr.length() do
-        @tmpy = arr[@index_y]
-        @buffer = @tmpx + @tmpy
-        if @buffer == n
-          return true
-        end
-        @index_y += 1
-      end
-      @index_x += 1
-    end
+  if arr.length() < 2
+    return false
   end
-  return false
+  
 end
 
 # Part 2
@@ -129,13 +99,19 @@ end
 
 class BookInStock
   def initialize(name, cost)
-    @@isbn = name
-    @@price = cost
+    @isbn = name
+    @price = cost
   end
   def isbn
-    @isbn
+    return @isbn
+  end
+  def isbn=(name)
+    @isbn = name
   end
   def price
-    @price
+    return @price
+  end
+  def price=(cost)
+    @price = cost
   end
 end
