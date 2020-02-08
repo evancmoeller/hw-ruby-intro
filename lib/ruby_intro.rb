@@ -99,8 +99,16 @@ end
 
 class BookInStock
   def initialize(name, cost)
-    @isbn = name
-    @price = cost
+    if name.length < 1
+      raise ArgumentError
+    else
+      @isbn = name
+    end
+    if cost <= 0
+      raise ArgumentError
+    else
+      @price = cost
+    end
   end
   def isbn
     return @isbn
@@ -113,5 +121,23 @@ class BookInStock
   end
   def price=(cost)
     @price = cost
+  end
+
+  def price_as_string
+    @retval = "$"
+    @buffer = @price.to_s
+    @dec = @buffer.index('.')
+    if @dec.nil?
+      @buffer += ".00"
+    else
+      @tmp = @buffer[@dec+1, @buffer.length()-1]
+      if @tmp.length() == 0
+        @buffer += "00"
+      elsif @tmp.length() == 1
+        @buffer += "0"
+      end
+    end
+    @retval += @buffer
+    return @retval
   end
 end
